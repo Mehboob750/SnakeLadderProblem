@@ -7,7 +7,7 @@ snake=2;
 winningPosition=100;
 diceCounter=1;
 diceRollPCount=1;
-function ladder(){
+function onLadder(){
 	position=$((1+RANDOM%6));
 	#tempResult=$(($player1+$positon));
 	if (( $(($player+$position)) > $winningPosition ))
@@ -21,7 +21,7 @@ function ladder(){
 	echo $player;
 }
 
-function snake(){
+function onSnake(){
 	position=$((1+RANDOM%6));
    if [[ $player -gt $position ]]
    then
@@ -34,7 +34,7 @@ function snake(){
   echo $player;
 }
 
-function checkNoplayLadderSnake(){
+function checkOption(){
 		option=$((RANDOM%3));
 		case $option in
 			$noPlay )
@@ -43,11 +43,11 @@ function checkNoplayLadderSnake(){
 				;;
 
 			$ladder )
-				ladder
+				onLadder
 				;;
 
 			$snake )
-				snake
+				onSnake
 				;;
 			* )
 				echo "Invalid Selection"
@@ -70,12 +70,12 @@ while [[ $player1 -ne $winningPosition || $player2 -ne $winningPosition ]]
 do
 	if (( $(($diceRollPCount%2)) == 0 ))
 	then
-		player1="$( checkNoplayLadderSnake $player1 )";
+		player1="$( checkOption $player1 )";
 		(( diceRollPCount++ ));
 
 		sleep 5s;
 	else
-		player2="$( checkNoplayLadderSnake $player2 )"
+		player2="$( checkOption $player2 )"
 		(( diceRollPCount++ ));
 		sleep 5s;
 	fi
